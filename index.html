@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云绘童心 - 关爱留守儿童心理健康</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 修正后的背景样式 */
+        body {
+            background-image: url('images/background.jpg'); 
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        /* 添加半透明遮罩确保内容可读 */
+        .main-header, 
+        main, 
+        .main-footer {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        /* 调整英雄区域的样式 */
+        .hero-banner {
+            position: relative;
+            padding: 40px 20px;
+            text-align: center;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <h1>
+                <i class="fas fa-cloud"></i>
+                云绘童心
+                <span class="subtitle">让爱跨越山海</span>
+            </h1>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#"><i class="fas fa-palette"></i> 作品墙</a></li>
+                    <li><a href="#"><i class="fas fa-heart"></i> 心灵树洞</a></li>
+                    <li><a href="#"><i class="fas fa-hands-helping"></i> 成为志愿者</a></li>
+                    <li><a href="#"><i class="fas fa-book-open"></i> 心理课堂</a></li>
+                </ul>
+            </nav>
+            
+            <div class="user-actions">
+                <a href="#" class="btn-upload"><i class="fas fa-cloud-upload-alt"></i> 上传作品</a>
+                <a href="#" class="btn-login">登录/注册</a>
+            </div>
+        </div>
+    </header>    
+
+    <main>
+        <!-- 英雄宣传区 -->
+        <section class="hero-banner">
+            <div class="hero-content">
+                <h2>用色彩温暖留守儿童的心灵</h2>
+                <p>每幅画作都是连接城乡孩子的桥梁</p>
+                <a href="#" class="btn-primary">立即参与</a>
+            </div>
+        </section>
+
+        <!-- 作品展示区 -->
+        <div class="main-content">
+            <!-- 宣传横幅 -->
+            <section class="hero-banner card">
+              <div class="hero-text">
+                <h2>用画笔连接城乡童心</h2>
+                <p>已有 <strong>1,243</strong> 位志愿者参与，收集到 <strong>3,568</strong> 份爱心作品</p>
+                <a href="#" class="cta-button">立即上传作品 <i class="fas fa-arrow-right"></i></a>
+              </div>
+              <div class="hero-image">
+                <img src="https://placeholder.pics/svg/400x200/FF9B6A-6AC5FF/FFFFFF/儿童绘画示例" alt="留守儿童画作">
+              </div>
+            </section>
+          
+            <!-- 作品展示区 -->
+            <section class="card">
+              <h3><i class="fas fa-palette"></i> 最新作品</h3>
+              <div class="gallery">
+                <div class="artwork">
+                  <img src="images/works1.jpg" alt="儿童画作">
+                  <div class="artwork-info">
+                    <h4>《在一起》</h4>
+                    <p class="author">小王</p>
+                    <p class="description">"本以为分离是为了更好的重聚"</p>
+                    <div class="artwork-stats">
+                      <span><i class="fas fa-heart"></i> 128</span>
+                      <span><i class="fas fa-comment"></i> 24</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="artwork">
+                  <img src="https://placeholder.pics/svg/300x200/6AC5FF-FF9B6A/FFFFFF/《太空梦》-李小明-12岁" alt="儿童画作">
+                  <div class="artwork-info">
+                    <h4>《太空梦》</h4>
+                    <p class="author">李小明 (12岁)</p>
+                    <p class="description">"我想当宇航员，带爷爷奶奶去看星星"</p>
+                    <div class="artwork-stats">
+                      <span><i class="fas fa-heart"></i> 89</span>
+                      <span><i class="fas fa-comment"></i> 15</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a href="#" class="see-more">浏览更多作品 <i class="fas fa-angle-double-right"></i></a>
+            </section>
+          
+            <!-- 心理小贴士 -->
+            <section class="card tips-section">
+              <h3><i class="fas fa-heart"></i> 心理小贴士</h3>
+              <div class="tip-card">
+                <div class="tip-icon">
+                  <i class="fas fa-child"></i>
+                </div>
+                <div class="tip-content">
+                  <h4>如何与留守儿童沟通？</h4>
+                  <ul>
+                    <li>多用开放式提问："今天有什么开心的事吗？"</li>
+                    <li>避免怜悯语气，平等交流</li>
+                    <li>通过绘画了解孩子内心世界</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          
+            <!-- 志愿者故事 -->
+            <section class="card volunteer-section">
+              <h3><i class="fas fa-hands-helping"></i> 志愿者故事</h3>
+              <div class="story">
+                <img src="https://placeholder.pics/svg/150/FF9B6A/FFFFFF/张老师" class="avatar" alt="志愿者头像">
+                <div class="story-content">
+                  <h4>张老师的支教日记</h4>
+                  <p class="date">2023年6月15日</p>
+                  <p>"今天收到了孩子们用树叶拼成的画，他们说每片叶子都代表一个想对爸爸妈妈说的悄悄话..."</p>
+                  <a href="#" class="read-more">阅读全文</a>
+                </div>
+              </div>
+            </section>
+        </div>
+    </main>    
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h4>关于云绘童心</h4>
+                <p>我们致力于通过艺术疗愈改善留守儿童心理健康</p>
+            </div>
+            <div class="footer-contact">
+                <h4>联系我们</h4>
+                <p><i class="fas fa-phone"></i> 400-123-4567</p>
+                <p><i class="fas fa-envelope"></i> contact@yunhuitongxin.org</p>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-weixin"></i></a>
+                <a href="#"><i class="fab fa-weibo"></i></a>
+                <a href="#"><i class="fab fa-qq"></i></a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 云绘童心公益项目 | 京ICP备XXXXXX号</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
