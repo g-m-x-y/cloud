@@ -1,8 +1,9 @@
 /* 全局样式 - 留守儿童主题 */
 :root {
-  --primary-color: #FF9B6A; 
-  --secondary-color: #6AC5FF; 
-  --accent-color: #FFD166; 
+  --primary-color: #FF9B6A; /* 温暖橙 */
+  --secondary-color: #6AC5FF; /* 天空蓝 */
+  --accent-color: #FFD166; /* 希望黄 */
+  --text-dark: #333;
   --text-light: #fff;
   --shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
@@ -11,13 +12,14 @@ body {
   font-family: 'Microsoft YaHei', sans-serif;
   line-height: 1.6;
   color: var(--text-dark);
-  background-color: rgba(249, 249, 249, 0.5); 
+  background-color: #f9f9f9;
 }
+
 
 
 /* 头部样式 */
 .main-header {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) rgba(255, 165, 0, 0.08);;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: var(--text-light);
   padding: 1rem 0;
   box-shadow: var(--shadow);
@@ -84,20 +86,11 @@ h1 .subtitle {
   padding: 0.5rem 1.5rem;
   border-radius: 50px;
 }
-.hero-banner {
-  background-image: url('./images/background.jpg');
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+
 /* 英雄宣传区 */
 .hero-banner {
   height: 500px;
-  background: url('./images/body1.jpg') center/cover;
+  background: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
   position: relative;
   display: flex;
   align-items: center;
@@ -108,7 +101,7 @@ h1 .subtitle {
   margin: 0 auto;
   padding: 2rem;
   z-index: 2;
-  color: var(--text-light);
+  color: var(--text-light) (#FF9B6A,0.5);
 }
 
 .hero-content h2 {
@@ -120,12 +113,12 @@ h1 .subtitle {
 .hero-content p {
   font-size: 1.2rem;
   margin-bottom: 2rem;
-  max-width: 600px;
+  max-width: 1200px;
 }
 
 .btn-primary {
   background: var(--primary-color);
-  color: var(--text-light);
+  color: var(--text-light)(#FF9B6A,0.5);
   padding: 0.8rem 2rem;
   border-radius: 50px;
   font-size: 1.1rem;
@@ -166,7 +159,7 @@ h1 .subtitle {
 
 /* 页脚样式 */
 .main-footer {
-  background: var(--text-dark) rgba(0, 0, 0, 0.7);
+  background: var(--text-dark);
   color: var(--text-light);
   padding: 3rem 0 1rem;
 }
@@ -215,7 +208,7 @@ h1 .subtitle {
   border-radius: 12px;
   padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   border-left: 4px solid var(--primary-color);
 }
 
@@ -260,7 +253,7 @@ h1 .subtitle {
 .artwork {
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.6);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
   transition: transform 0.3s;
 }
 
