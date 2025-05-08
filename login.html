@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录/注册 - 云绘童心</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 登录页面特有样式 */
+        .auth-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .auth-hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 12px;
+            padding: 3rem;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .auth-hero h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .auth-hero p {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .auth-form-container {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .auth-tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .auth-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .auth-form {
+            display: none;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        .auth-btn {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .auth-btn:hover {
+            background: #ff8a4a;
+            transform: translateY(-2px);
+        }
+        
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: #999;
+        }
+        
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .auth-divider span {
+            padding: 0 1rem;
+        }
+        
+        .social-auth {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.7rem;
+            border-radius: 8px;
+            font-weight: 500;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-wechat {
+            background: #07C160;
+        }
+        
+        .btn-weibo {
+            background: #E6162D;
+        }
+        
+        .forgot-link {
+            display: block;
+            text-align: right;
+            margin-top: -1rem;
+            margin-bottom: 1.5rem;
+            color: #666;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+        
+        .forgot-link:hover {
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .auth-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .auth-hero {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <h1>
+                <i class="fas fa-cloud"></i>
+                云绘童心
+                <span class="subtitle">让爱跨越山海</span>
+            </h1>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> 首页</a></li>
+                    <li><a href="login.html"><i class="fas fa-palette"></i> 作品墙</a></li>
+                    <li><a href="login.html"><i class="fas fa-hands-helping"></i> 志愿者</a></li>
+                    <li><a href="finance.html"><i class="fas fa-chart-pie"></i> 财务公示</a></li>
+                </ul>
+            </nav>
+            
+            <div class="user-actions">
+                <a href="#" class="btn-upload"><i class="fas fa-cloud-upload-alt"></i> 上传作品</a>
+                <a href="login.html" class="btn-login">登录/注册</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="auth-container">
+            <div class="auth-hero">
+                <h2><i class="fas fa-child"></i> 欢迎来到云绘童心</h2>
+                <p>加入我们的社区，与留守儿童分享爱与温暖。您的每一个行动都能为孩子的心灵带来色彩。</p>
+                <p><i class="fas fa-check-circle"></i> 上传和分享艺术作品</p>
+                <p><i class="fas fa-check-circle"></i> 参与志愿者活动</p>
+                <p><i class="fas fa-check-circle"></i> 获取心理健康资源</p>
+                <p><i class="fas fa-check-circle"></i> 跟踪您的贡献记录</p>
+            </div>
+            
+            <div class="auth-form-container">
+                <div class="auth-tabs">
+                    <div class="auth-tab active" data-tab="login">登录</div>
+                    <div class="auth-tab" data-tab="register">注册</div>
+                </div>
+                
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <label for="login-email">电子邮箱</label>
+                        <input type="email" id="login-email" class="form-control" placeholder="请输入您的邮箱" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">密码</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="请输入密码" required>
+                        <a href="#" class="forgot-link">忘记密码?</a>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">登录</button>
+                    
+                    <div class="auth-divider">
+                        <span>或使用以下方式登录</span>
+                    </div>
+                    
+                    <div class="social-auth">
+                        <a href="#" class="social-btn btn-wechat">
+                            <i class="fab fa-weixin"></i> 微信登录
+                        </a>
+                        <a href="#" class="social-btn btn-weibo">
+                            <i class="fab fa-weibo"></i> 微博登录
+                        </a>
+                    </div>
+                </form>
+                
+                <form id="register-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="register-name">用户名</label>
+                        <input type="text" id="register-name" class="form-control" placeholder="设置您的用户名" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-email">电子邮箱</label>
+                        <input type="email" id="register-email" class="form-control" placeholder="请输入您的邮箱" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-password">密码</label>
+                        <input type="password" id="register-password" class="form-control" placeholder="设置密码(至少8位)" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-confirm">确认密码</label>
+                        <input type="password" id="register-confirm" class="form-control" placeholder="再次输入密码" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" required> 我已阅读并同意<a href="#">《用户协议》</a>和<a href="#">《隐私政策》</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">注册</button>
+                    
+                    <div class="auth-divider">
+                        <span>已有账号?</span>
+                    </div>
+                    
+                    <button type="button" class="auth-btn" style="background: var(--secondary-color);" id="switch-to-login">立即登录</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h4>关于云绘童心</h4>
+                <p>我们致力于通过艺术疗愈改善留守儿童心理健康</p>
+            </div>
+            <div class="footer-contact">
+                <h4>联系我们</h4>
+                <p><i class="fas fa-phone"></i> 400-123-4567</p>
+                <p><i class="fas fa-envelope"></i> contact@yunhuitongxin.org</p>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-weixin"></i></a>
+                <a href="#"><i class="fab fa-weibo"></i></a>
+                <a href="#"><i class="fab fa-qq"></i></a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 云绘童心公益项目 | 京ICP备XXXXXX号</p>
+        </div>
+    </footer>
+
+    <script>
+        // 切换登录/注册表单
+        document.querySelectorAll('.auth-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // 移除所有active类
+                document.querySelectorAll('.auth-tab, .auth-form').forEach(el => {
+                    el.classList.remove('active');
+                });
+                
+                // 为当前标签和对应表单添加active类
+                this.classList.add('active');
+                document.getElementById(`${this.dataset.tab}-form`).classList.add('active');
+            });
+        });
+        
+        // 注册页面切换到登录
+        document.getElementById('switch-to-login').addEventListener('click', function() {
+            document.querySelectorAll('.auth-tab, .auth-form').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            document.querySelector('.auth-tab[data-tab="login"]').classList.add('active');
+            document.getElementById('login-form').classList.add('active');
+        });
+    </script>
+</body>
+</html>

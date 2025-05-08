@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>财务透明化 - 云绘童心</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 财务页面特有样式 */
+        .finance-header {
+            background: linear-gradient(135deg, #4a6fa5, #166088);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .finance-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .finance-header p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .blockchain-badge {
+            display: inline-block;
+            background: rgba(0,0,0,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .finance-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .finance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .finance-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .finance-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .finance-card h3 {
+            color: #166088;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .finance-card .amount {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: #4a6fa5;
+        }
+        
+        .progress-container {
+            background: #f0f0f0;
+            border-radius: 50px;
+            height: 10px;
+            margin: 1.5rem 0;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 50px;
+            background: linear-gradient(to right, #4a6fa5, #166088);
+        }
+        
+        .transaction-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0 0;
+        }
+        
+        .transaction-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+        
+        .transaction-amount {
+            font-weight: bold;
+            color: #4a6fa5;
+        }
+        
+        .transaction-positive {
+            color: #4CAF50;
+        }
+        
+        .transaction-negative {
+            color: #F44336;
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin: 2rem 0;
+        }
+        
+        .finance-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        
+        .finance-table th, 
+        .finance-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .finance-table th {
+            background: #f5f5f5;
+            font-weight: 600;
+        }
+        
+        .finance-table tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .blockchain-link {
+            color: #4a6fa5;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .blockchain-link:hover {
+            text-decoration: underline;
+        }
+        
+        .audit-report {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #4a6fa5;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: #166088;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .finance-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .finance-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <h1>
+                <i class="fas fa-cloud"></i>
+                云绘童心
+                <span class="subtitle">让爱跨越山海</span>
+            </h1>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> 首页</a></li>
+                    <li><a href="login.html"><i class="fas fa-palette"></i> 作品墙</a></li>
+                    <li><a href="login.html"><i class="fas fa-hands-helping"></i> 成为志愿者</a></li>
+                    <li><a href="finance.html" class="active"><i class="fas fa-chart-pie"></i> 财务公示</a></li>
+                </ul>
+            </nav>
+            
+            <div class="user-actions">
+                <a href="#" class="btn-upload"><i class="fas fa-cloud-upload-alt"></i> 上传作品</a>
+                <a href="#" class="btn-login">登录/注册</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="finance-header">
+        <div class="finance-section">
+            <h1><i class="fas fa-lock"></i> 财务透明化中心</h1>
+            <p>我们坚信公益事业的透明是赢得信任的基础。所有捐赠资金流向实时公开，每一分钱的使用都可追溯。</p>
+            <div class="blockchain-badge">
+                <i class="fas fa-link"></i> 基于区块链技术 | 所有交易不可篡改
+            </div>
+        </div>
+    </div>
+
+    <main class="finance-section">
+        <!-- 资金概览 -->
+        <section class="card">
+            <h2><i class="fas fa-wallet"></i> 资金概览</h2>
+            <p>截至2025年5月8日的项目资金使用情况</p>
+            
+            <div class="finance-grid">
+                <div class="finance-card">
+                    <h3><i class="fas fa-hand-holding-heart"></i> 总捐赠收入</h3>
+                    <div class="amount">¥1,243,568</div>
+                    <p>来自1,243位捐赠者的爱心</p>
+                </div>
+                
+                <div class="finance-card">
+                    <h3><i class="fas fa-piggy-bank"></i> 当前余额</h3>
+                    <div class="amount">¥328,742</div>
+                    <p>可用于后续项目执行</p>
+                </div>
+                
+                <div class="finance-card">
+                    <h3><i class="fas fa-coins"></i> 已使用资金</h3>
+                    <div class="amount">¥914,826</div>
+                    <p>资金使用率73.6%</p>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 73.6%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 资金流向图表 -->
+        <section class="card">
+            <h2><i class="fas fa-chart-line"></i> 资金流向分析</h2>
+            <p>捐赠资金在各项目中的分配比例</p>
+            
+            <div class="chart-container">
+                <!-- 这里实际项目中会接入图表库如Chart.js或ECharts -->
+                <img src="https://via.placeholder.com/1200x400/e9f5ff/4a6fa5?text=资金流向饼图+和+趋势图" alt="资金流向图表" style="width:100%; border-radius:8px;">
+            </div>
+            
+            <div class="finance-grid">
+                <div class="finance-card">
+                    <h3><i class="fas fa-paint-brush"></i> 艺术疗愈项目</h3>
+                    <div class="amount">¥486,325</div>
+                    <p>占比39.1%</p>
+                    <ul class="transaction-list">
+                        <li class="transaction-item">
+                            <span>绘画材料采购</span>
+                            <span class="transaction-amount transaction-negative">-¥128,600</span>
+                        </li>
+                        <li class="transaction-item">
+                            <span>艺术教师津贴</span>
+                            <span class="transaction-amount transaction-negative">-¥257,800</span>
+                        </li>
+                        <li class="transaction-item">
+                            <span>作品展览费用</span>
+                            <span class="transaction-amount transaction-negative">-¥99,925</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="finance-card">
+                    <h3><i class="fas fa-heartbeat"></i> 心理健康服务</h3>
+                    <div class="amount">¥327,891</div>
+                    <p>占比26.4%</p>
+                    <ul class="transaction-list">
+                        <li class="transaction-item">
+                            <span>心理咨询师费用</span>
+                            <span class="transaction-amount transaction-negative">-¥198,500</span>
+                        </li>
+                        <li class="transaction-item">
+                            <span>心理健康手册印刷</span>
+                            <span class="transaction-amount transaction-negative">-¥67,391</span>
+                        </li>
+                        <li class="transaction-item">
+                            <span>心理测评工具</span>
+                            <span class="transaction-amount transaction-negative">-¥62,000</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="finance-card">
+                    <h3><i class="fas fa-school"></i> 教育支持计划</h3>
+                    <div class="amount">¥258,400</div>
+                    <p>占比20.8%</p>
+                    <ul class="transaction-list">
+                        <li class="transaction-item">
+                            <span>学习用品采购</span>
+                            <span class="transaction-amount transaction-negative">-¥132,000</span>
+                        </li>
+                        <li class="transaction-item">
+                            <span>助学金发放</span>
+                            <span class="transaction-amount transaction-negative">-¥96,400</span>
+                        </li>
+                        <li class="transaction-item">
+                            <span>线上课程开发</span>
+                            <span class="transaction-amount transaction-negative">-¥30,000</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 最新交易记录 -->
+        <section class="card">
+            <h2><i class="fas fa-exchange-alt"></i> 最新交易记录</h2>
+            <p>最近30天的资金流入与流出明细</p>
+            
+            <table class="finance-table">
+                <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>交易类型</th>
+                        <th>描述</th>
+                        <th>金额</th>
+                        <th>区块链ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2025-05-07</td>
+                        <td><span class="transaction-positive">收入</span></td>
+                        <td>爱心网友张**捐赠</td>
+                        <td class="transaction-amount transaction-positive">+¥2,000</td>
+                        <td><a href="#" class="blockchain-link">0x3a7d...f2e1</a></td>
+                    </tr>
+                    <tr>
+                        <td>2025-05-06</td>
+                        <td><span class="transaction-negative">支出</span></td>
+                        <td>采购绘画材料(5月批次)</td>
+                        <td class="transaction-amount transaction-negative">-¥28,600</td>
+                        <td><a href="#" class="blockchain-link">0x5b2c...9d4f</a></td>
+                    </tr>
+                    <tr>
+                        <td>2025-05-05</td>
+                        <td><span class="transaction-positive">收入</span></td>
+                        <td>企业合作捐赠(ABC公司)</td>
+                        <td class="transaction-amount transaction-positive">+¥50,000</td>
+                        <td><a href="#" class="blockchain-link">0x1f8e...7a3d</a></td>
+                    </tr>
+                    <tr>
+                        <td>2025-05-03</td>
+                        <td><span class="transaction-negative">支出</span></td>
+                        <td>心理咨询师4月津贴</td>
+                        <td class="transaction-amount transaction-negative">-¥32,000</td>
+                        <td><a href="#" class="blockchain-link">0x6e9a...2b5c</a></td>
+                    </tr>
+                    <tr>
+                        <td>2025-05-01</td>
+                        <td><span class="transaction-negative">支出</span></td>
+                        <td>网站服务器维护费用</td>
+                        <td class="transaction-amount transaction-negative">-¥2,800</td>
+                        <td><a href="#" class="blockchain-link">0x4d3f...8c2a</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <a href="#" class="download-btn">
+                <i class="fas fa-download"></i> 下载完整交易记录(CSV)
+            </a>
+        </section>
+        
+        <!-- 审计报告 -->
+        <section class="card">
+            <h2><i class="fas fa-file-contract"></i> 审计报告</h2>
+            <p>由第三方审计机构出具的财务审计报告</p>
+            
+            <div class="audit-report">
+                <h3><i class="fas fa-certificate"></i> 2024年度财务审计报告</h3>
+                <p>审计机构：诚信会计师事务所 | 审计日期：2025-01-15</p>
+                <p>审计意见：无保留意见 | 报告编号：CX-2025-015</p>
+                <p>审计结论：云绘童心项目的财务记录完整、准确，资金使用符合捐赠协议约定。</p>
+            </div>
+            
+            <div class="finance-grid">
+                <a href="#" class="download-btn">
+                    <i class="fas fa-file-pdf"></i> 下载2024年度审计报告(PDF)
+                </a>
+                <a href="#" class="download-btn">
+                    <i class="fas fa-file-excel"></i> 下载财务明细表(Excel)
+                </a>
+            </div>
+        </section>
+        
+        <!-- 区块链验证 -->
+        <section class="card">
+            <h2><i class="fas fa-link"></i> 区块链验证</h2>
+            <p>所有交易记录已上链，可通过以下方式验证</p>
+            
+            <div class="finance-card">
+                <h3><i class="fas fa-search"></i> 交易验证</h3>
+                <p>输入交易ID或区块链哈希值验证交易真实性</p>
+                <input type="text" placeholder="输入交易ID或哈希" style="width:100%; padding:0.8rem; border:1px solid #ddd; border-radius:8px; margin:1rem 0;">
+                <button class="download-btn" style="width:100%; justify-content:center;">
+                    <i class="fas fa-search"></i> 验证交易
+                </button>
+            </div>
+            
+            <div class="finance-card">
+                <h3><i class="fab fa-ethereum"></i> 区块链浏览器</h3>
+                <p>通过区块链浏览器查看所有交易记录</p>
+                <a href="#" class="download-btn" style="width:100%; justify-content:center;">
+                    <i class="fas fa-external-link-alt"></i> 打开区块链浏览器
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h4>关于云绘童心</h4>
+                <p>我们致力于通过艺术疗愈改善留守儿童心理健康</p>
+            </div>
+            <div class="footer-contact">
+                <h4>联系我们</h4>
+                <p><i class="fas fa-phone"></i> 400-123-4567</p>
+                <p><i class="fas fa-envelope"></i> contact@yunhuitongxin.org</p>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-weixin"></i></a>
+                <a href="#"><i class="fab fa-weibo"></i></a>
+                <a href="#"><i class="fab fa-qq"></i></a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 云绘童心公益项目 | 京ICP备XXXXXX号</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

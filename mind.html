@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心理课堂 - 云绘童心</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 心理课堂特有样式 */
+        .classroom-hero {
+            background: linear-gradient(135deg, #8E8D8A, #E98074);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .classroom-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .classroom-hero p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .classroom-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .course-categories {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+        
+        .category-btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            background: #f5f5f5;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+        
+        .category-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .course-thumbnail {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .course-thumbnail::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+        
+        .course-duration {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            z-index: 1;
+        }
+        
+        .course-content {
+            padding: 1.5rem;
+        }
+        
+        .course-content h3 {
+            margin-top: 0;
+            color: var(--text-dark);
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+        
+        .course-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .course-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 0.7rem;
+            text-align: center;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .course-btn:hover {
+            background: #ff8a4a;
+        }
+        
+        .expert-section {
+            margin: 4rem 0;
+        }
+        
+        .expert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .expert-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .expert-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--secondary-color);
+            margin: 0 auto 1rem;
+        }
+        
+        .expert-name {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+            color: var(--text-dark);
+        }
+        
+        .expert-title {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .expert-bio {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .expert-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .expert-social a {
+            color: #666;
+            transition: color 0.3s;
+        }
+        
+        .expert-social a:hover {
+            color: var(--primary-color);
+        }
+        
+        .resource-section {
+            margin: 4rem 0;
+        }
+        
+        .resource-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .resource-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: background 0.3s;
+        }
+        
+        .resource-item:hover {
+            background: #f9f9f9;
+        }
+        
+        .resource-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .resource-content {
+            flex: 1;
+        }
+        
+        .resource-title {
+            margin: 0 0 0.5rem;
+            color: var(--text-dark);
+        }
+        
+        .resource-meta {
+            display: flex;
+            gap: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .resource-download {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .classroom-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <h1>
+                <i class="fas fa-cloud"></i>
+                云绘童心
+                <span class="subtitle">让爱跨越山海</span>
+            </h1>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> 首页</a></li>
+                    <li><a href="login.html"><i class="fas fa-palette"></i> 作品墙</a></li>
+                    <li><a href="login.html"><i class="fas fa-hands-helping"></i> 志愿者</a></li>
+                    <li><a href="finance.html"><i class="fas fa-chart-pie"></i> 财务公示</a></li>
+                </ul>
+            </nav>
+            
+            <div class="user-actions">
+                <a href="#" class="btn-upload"><i class="fas fa-cloud-upload-alt"></i> 上传作品</a>
+                <a href="login.html" class="btn-login">登录/注册</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="classroom-hero">
+        <div class="classroom-container">
+            <h1><i class="fas fa-brain"></i> 心理课堂</h1>
+            <p>专业的心理健康教育资源，帮助您更好地理解和支持留守儿童的心理需求。从基础心理学知识到实用沟通技巧，我们为您提供全方位的指导。</p>
+        </div>
+    </div>
+
+    <main class="classroom-container">
+        <!-- 课程分类 -->
+        <section class="card">
+            <h2><i class="fas fa-graduation-cap"></i> 精选课程</h2>
+            <p>根据您的需求选择适合的课程</p>
+            
+            <div class="course-categories">
+                <button class="category-btn active">全部课程</button>
+                <button class="category-btn">儿童心理学</button>
+                <button class="category-btn">沟通技巧</button>
+                <button class="category-btn">艺术疗愈</button>
+                <button class="category-btn">情绪管理</button>
+                <button class="category-btn">创伤疗愈</button>
+                <button class="category-btn">亲子关系</button>
+            </div>
+            
+            <div class="course-grid">
+                <div class="course-card">
+                    <div class="course-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1573497491765-dccce02b29df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                        <span class="course-duration"><i class="fas fa-clock"></i> 45分钟</span>
+                    </div>
+                    <div class="course-content">
+                        <h3>理解留守儿童的心理世界</h3>
+                        <div class="course-meta">
+                            <span><i class="fas fa-user"></i> 李教授</span>
+                            <span><i class="fas fa-users"></i> 1,243人学习</span>
+                        </div>
+                        <p class="course-description">本课程将带您深入了解留守儿童独特的心理特征和常见问题，帮助您建立同理心，为后续的互动和支持打下基础。</p>
+                        <a href="#" class="course-btn">开始学习</a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1549060279-7e168fcee0c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                        <span class="course-duration"><i class="fas fa-clock"></i> 1小时20分钟</span>
+                    </div>
+                    <div class="course-content">
+                        <h3>艺术疗愈基础与实践</h3>
+                        <div class="course-meta">
+                            <span><i class="fas fa-user"></i> 王艺术治疗师</span>
+                            <span><i class="fas fa-users"></i> 892人学习</span>
+                        </div>
+                        <p class="course-description">学习如何通过绘画、手工等艺术形式帮助留守儿童表达情感，释放压力，促进心理健康发展。</p>
+                        <a href="#" class="course-btn">开始学习</a>
+                    </div>
+                </div>
+                
+                <div class="course-card">
+                    <div class="course-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                        <span class="course-duration"><i class="fas fa-clock"></i> 30分钟</span>
+                    </div>
+                    <div class="course-content">
+                        <h3>与留守儿童的有效沟通技巧</h3>
+                        <div class="course-meta">
+                            <span><i class="fas fa-user"></i> 张心理咨询师</span>
+                            <span><i class="fas fa-users"></i> 1,567人学习</span>
+                        </div>
+                        <p class="course-description">掌握与留守儿童沟通的特殊技巧，学习如何建立信任，如何提问和倾听，以及如何避免沟通中的常见误区。</p>
+                        <a href="#" class="course-btn">开始学习</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 专家团队 -->
+        <section class="card expert-section">
+            <h2><i class="fas fa-users"></i> 专家团队</h2>
+            <p>我们的专业心理咨询师和儿童教育专家</p>
+            
+            <div class="expert-grid">
+                <div class="expert-card">
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="李教授" class="expert-avatar">
+                    <h3 class="expert-name">李教授</h3>
+                    <p class="expert-title">儿童心理学专家</p>
+                    <p class="expert-bio">北京师范大学心理学教授，专注留守儿童心理研究15年，发表相关论文30余篇。</p>
+                    <div class="expert-social">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div class="expert-card">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="王治疗师" class="expert-avatar">
+                    <h3 class="expert-name">王治疗师</h3>
+                    <p class="expert-title">艺术治疗师</p>
+                    <p class="expert-bio">中央美术学院艺术治疗硕士，擅长通过绘画、手工等艺术形式帮助儿童表达情感。</p>
+                    <div class="expert-social">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div class="expert-card">
+                    <img src="https://images.unsplash.com/photo-1562788869-4ed32648eb72?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="张咨询师" class="expert-avatar">
+                    <h3 class="expert-name">张咨询师</h3>
+                    <p class="expert-title">心理咨询师</p>
+                    <p class="expert-bio">国家二级心理咨询师，专注儿童与青少年心理咨询10年，累计咨询时长超过5000小时。</p>
+                    <div class="expert-social">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 资源下载 -->
+        <section class="card resource-section">
+            <h2><i class="fas fa-download"></i> 资源下载</h2>
+            <p>免费的心理健康教育资源和工具</p>
+            
+            <ul class="resource-list">
+                <li class="resource-item">
+                    <div class="resource-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h4 class="resource-title">《留守儿童心理健康指南》</h4>
+                        <div class="resource-meta">
+                            <span><i class="fas fa-file-pdf"></i> PDF</span>
+                            <span><i class="fas fa-file-alt"></i> 32页</span>
+                            <span><i class="fas fa-database"></i> 4.2MB</span>
+                        </div>
+                    </div>
+                    <a href="#" class="resource-download">
+                        <i class="fas fa-download"></i> 下载
+                    </a>
+                </li>
+                
+                <li class="resource-item">
+                    <div class="resource-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h4 class="resource-title">《艺术疗愈活动示范视频》</h4>
+                        <div class="resource-meta">
+                            <span><i class="fas fa-file-video"></i> MP4</span>
+                            <span><i class="fas fa-clock"></i> 45分钟</span>
+                            <span><i class="fas fa-database"></i> 256MB</span>
+                        </div>
+                    </div>
+                    <a href="#" class="resource-download">
+                        <i class="fas fa-download"></i> 下载
+                    </a>
+                </li>
+                
+                <li class="resource-item">
+                    <div class="resource-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h4 class="resource-title">《儿童情绪评估量表》</h4>
+                        <div class="resource-meta">
+                            <span><i class="fas fa-file-excel"></i> Excel</span>
+                            <span><i class="fas fa-file-alt"></i> 5页</span>
+                            <span><i class="fas fa-database"></i> 1.5MB</span>
+                        </div>
+                    </div>
+                    <a href="#" class="resource-download">
+                        <i class="fas fa-download"></i> 下载
+                    </a>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h4>关于云绘童心</h4>
+                <p>我们致力于通过艺术疗愈改善留守儿童心理健康</p>
+            </div>
+            <div class="footer-contact">
+                <h4>联系我们</h4>
+                <p><i class="fas fa-phone"></i> 400-123-4567</p>
+                <p><i class="fas fa-envelope"></i> contact@yunhuitongxin.org</p>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-weixin"></i></a>
+                <a href="#"><i class="fab fa-weibo"></i></a>
+                <a href="#"><i class="fab fa-qq"></i></a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 云绘童心公益项目 | 京ICP备XXXXXX号</p>
+        </div>
+    </footer>
+
+    <script>
+        // 课程分类切换
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelector('.category-btn.active').classList.remove('active');
+                this.classList.add('active');
+                // 这里实际项目中会加载对应分类的课程
+            });
+        });
+    </script>
+</body>
+</html>
